@@ -48,10 +48,10 @@ namespace Nez
 
 			// windows
 			if (platformId == PlatformID.Win32NT || platformId == PlatformID.Win32S ||
-			    platformId == PlatformID.Win32Windows || platformId == PlatformID.WinCE)
+				platformId == PlatformID.Win32Windows || platformId == PlatformID.WinCE)
 			{
 				var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-				return Path.Combine(docs, "SavedGames", exeName);
+				return Path.Combine(docs, "My Games", exeName);
 			}
 
 #if FNA
