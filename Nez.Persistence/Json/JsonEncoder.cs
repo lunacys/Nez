@@ -204,9 +204,9 @@ namespace Nez.Persistence
 				AppendColon();
 
 				var fieldValue = field.GetValue(value);
-				bool forceTypeHintForField = true;
-				if (fieldValue != null && _settings.TypeNameHandling == TypeNameHandling.Auto)
-					if (field.FieldType != fieldValue.GetType())
+				bool forceTypeHintForField = false;
+				if(fieldValue != null && _settings.TypeNameHandling == TypeNameHandling.Auto)
+					if(field.FieldType != fieldValue.GetType())
 						forceTypeHintForField = true;
 				
 				EncodeValue(fieldValue, forceTypeHintForField);

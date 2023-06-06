@@ -35,10 +35,6 @@ namespace Nez.Persistence
 				return isEncodeable;
 			}
 
-
-			if (memberInfo.MemberType == MemberTypes.Property)
-				isPublic = true;
-
 			foreach (var attribute in memberInfo.GetCustomAttributes(true))
 			{
 				if (JsonConstants.excludeAttrType.IsInstanceOfType(attribute))
