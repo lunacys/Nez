@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -24,12 +25,12 @@ namespace Nez
 				if (_graphicsDevice != null)
 				{
 					UpdateResourceReference(false);
-					_selfReference = null;
+					_selfReference.Free();
 				}
 
 				_graphicsDevice = value;
 
-				_selfReference = new WeakReference(this);
+				_selfReference = GCHandle.Alloc(this);
 				UpdateResourceReference(true);
 			}
 		}
@@ -40,7 +41,7 @@ namespace Nez
 		// parameter is true. If disposing is false, the GraphicsDevice may or may not be disposed yet.
 		GraphicsDevice _graphicsDevice;
 
-		WeakReference _selfReference;
+		GCHandle _selfReference;
 
 
 		internal GraphicsResource()
@@ -83,7 +84,7 @@ namespace Nez
 				if (GraphicsDevice != null)
 					UpdateResourceReference(false);
 
-				_selfReference = null;
+				_selfReference.Free();
 				_graphicsDevice = null;
 				IsDisposed = true;
 			}
@@ -94,7 +95,7 @@ namespace Nez
 		{
 			var method = shouldAdd ? "AddResourceReference" : "RemoveResourceReference";
 			var methodInfo = ReflectionUtils.GetMethodInfo(GraphicsDevice, method);
-			methodInfo.Invoke(GraphicsDevice, new object[] {_selfReference});
+			methodInfo.Invoke(GraphicsDevice, new object[] { _selfReference });
 		}
 	}
 }
