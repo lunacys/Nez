@@ -28,7 +28,6 @@ namespace Nez
 				if (_graphicsDevice != null)
 				{
 					UpdateResourceReference(false);
-					_selfReference.Free();
 				}
 
 				_graphicsDevice = value;
