@@ -419,6 +419,8 @@ namespace Nez.ImGuiTools
 			for (int n = 0; n < drawData.CmdListsCount; n++)
 			{
 				var cmdList = drawData.CmdListsRange[n];
+				int cmdListIdxOffset = idxOffset;
+
 				for (int cmdi = 0; cmdi < cmdList.CmdBuffer.Size; cmdi++)
 				{
 					var drawCmd = cmdList.CmdBuffer[cmdi];
@@ -443,10 +445,10 @@ namespace Nez.ImGuiTools
 #pragma warning disable CS0618 // FNA does not expose an alternative method.
 						Core.GraphicsDevice.DrawIndexedPrimitives(
 							primitiveType: PrimitiveType.TriangleList,
-							baseVertex: vtxOffset,
+							baseVertex: vtxOffset + (int)drawCmd.VtxOffset,
 							minVertexIndex: 0,
 							numVertices: cmdList.VtxBuffer.Size,
-							startIndex: idxOffset,
+							startIndex: cmdListIdxOffset + (int)drawCmd.IdxOffset,
 							primitiveCount: (int)drawCmd.ElemCount / 3
 						);
 #pragma warning restore CS0618
